@@ -1,23 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
 
 function App() {
+  const [equipmentData, setEquipmentData] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch("/data.json"); // Path relative to public/
+        if (!response.ok) {
+          throw new Error("Network response was not ok.");
+        }
+        const data = await response.json();
+        setEquipmentData(data);
+      } catch (err) {
+        setError(err.message);
+      }
+    }
+    fetchData();
+  }, []); // Empty dependency array ensures this runs once on mount
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Equipment Data</h1>
+      <ul>
+        {equipmentData.map((item) => (
+          <li key={item.eventGeneratedTime}>
+            {item.EquipmentId} - {item.speed} km/h
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
