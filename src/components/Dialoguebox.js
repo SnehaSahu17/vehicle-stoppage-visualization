@@ -51,31 +51,31 @@ function Dialoguebox({
         <h1 className="text-xl font-semibold  text-[#0c1b2d]">
           Stoppage Details
         </h1>
-        <div className="mt-2  h-72 overflow-y-auto">
+        <div className="mt-2 h-20 sm:h-56 md:h-72  2xl:h-[22rem] overflow-y-auto">
           {stoppages.map((stoppage, index) => (
             <div key={index} className="mt-2">
-              <h2 className="text-lg font-medium  text-[#af3535]">
+              <h2 className=" text-lg font-medium  text-[#af3535]">
                 Stoppage {index + 1}
               </h2>
-              <p className="text-[#4a5a6d] text-md">
+              <p className="text-[#4a5a6d] text-sm md:text-md">
                 Reach Time:{" "}
                 <span className="text-[#6b7f97] text-sm ">
                   {stoppage.reachTime}
                 </span>
               </p>
-              <p className="text-[#4a5a6d] text-md">
+              <p className="text-sm md:text-md">
                 End Time:
                 <span className="text-[#6b7f97] text-sm ">
                   {stoppage.endTime}
                 </span>
               </p>
-              <p className="text-[#4a5a6d] text-md">
+              <p className="text-sm md:text-md">
                 Duration:
                 <span className="text-[#6b7f97] text-sm ">
                   {stoppage.duration} minutes
                 </span>
               </p>
-              <p className="text-[#4a5a6d] text-md">
+              <p className="text-sm md:text-md">
                 Distance Covered:
                 <span className="text-[#6b7f97] text-sm ">
                   {stoppage.distance} km
