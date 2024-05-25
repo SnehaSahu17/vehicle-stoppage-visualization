@@ -3,15 +3,15 @@
 import { useEffect } from "react";
 import { useMap } from "react-leaflet";
 
-const ZoomToPath = ({ positions }) => {
+const ZoomToPath = ({ positions,shouldZoom }) => {
   const map = useMap();
 
   useEffect(() => {
-    if (positions.length > 0) {
+    if (shouldZoom && positions.length > 0) {
       const bounds = positions.map((pos) => [pos[0], pos[1]]);
       map.fitBounds(bounds, { padding: [50, 50] });
     }
-  }, [positions, map]);
+  }, [positions, map,shouldZoom]);
 
   return null;
 };

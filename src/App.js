@@ -22,6 +22,7 @@ function App() {
   const [stoppages, setStoppages] = useState([]);
   const [equipmentId, setEquipmentId] = useState("");
   const [nav, setNav] = useState(true);
+  const [shouldZoom, setShouldZoom] = useState(false);
   
   const handleThresholdChange = (e) => {
     setThreshold(e.target.value);
@@ -32,7 +33,7 @@ function App() {
   };
 
  const handleEquipmentAnalyze = () => {
-   
+    setShouldZoom(true);
      async function fetchData() {
        try {
          const response = await fetch("/data.json"); 
@@ -59,7 +60,7 @@ function App() {
   return (
     <div className="relative ">
       {setEquipmentId && gpsData.length > 0 && (
-        <Map gpsData={gpsData} stoppages={stoppages} />
+        <Map gpsData={gpsData} stoppages={stoppages} shouldZoom={shouldZoom} />
       )}
 
       <div className="px-3 py-4 md:p-8 w-full absolute z-10">
