@@ -20,7 +20,7 @@ const Map= ({ gpsData, stoppages ,shouldZoom}) => {
       center={positions[0]}
       zoom={10}
       className="h-screen w-full absolute z-0"
-      
+      zoomControl={false}
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -33,6 +33,9 @@ const Map= ({ gpsData, stoppages ,shouldZoom}) => {
         <Marker key={index} position={stop.location} icon={customIcon}>
           <Popup>
             <div>
+              <p>
+                <strong>Stoppage No.:</strong> {stop.count}
+              </p>
               <p>
                 <strong>Reach Time:</strong> {stop.reachTime}
               </p>

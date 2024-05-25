@@ -5,21 +5,23 @@ export const detectStoppages = (data, threshold) => {
   let currentStoppage = null;
   let totalDistance = 0;
   let lastPoint = null;
-
+  let count = 0;
   for (let i = 0; i < data.length; i++) {
     const point = data[i];
     const currentCoords = { lat: point.latitude, lng: point.longitude };
     if (lastPoint) {
       totalDistance += distanceCalculation(lastPoint, currentCoords);
     }
-
+    
     if (point.speed === 0) {
       if (!currentStoppage) {
         currentStoppage = {
           start: point.eventGeneratedTime,
           location: currentCoords,
           distance: totalDistance,
+          
         };
+ 
       }
     } else {
       if (currentStoppage) {
@@ -32,6 +34,7 @@ export const detectStoppages = (data, threshold) => {
             duration: duration.toFixed(2),
             location: currentStoppage.location,
             distance: currentStoppage.distance.toFixed(2), // Distance in kilometers
+            count:++count
           });
         }
         currentStoppage = null;

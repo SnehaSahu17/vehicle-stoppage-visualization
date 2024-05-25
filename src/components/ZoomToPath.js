@@ -1,4 +1,3 @@
-// src/components/ZoomToPath.js
 
 import { useEffect } from "react";
 import { useMap } from "react-leaflet";

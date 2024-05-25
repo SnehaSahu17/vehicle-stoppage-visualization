@@ -1,4 +1,3 @@
-// src/customMarker.js
 
 import L from "leaflet";
 
