@@ -7,6 +7,7 @@ import {
   Polyline,
   Marker,
   Popup,
+  ZoomControl
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import customIcon from "./customIcon";
@@ -15,11 +16,12 @@ const Map= ({ gpsData, stoppages }) => {
   const positions = gpsData.map((point) => [point.latitude, point.longitude]);
 
   return (
-    <MapContainer center={positions[0]} zoom={13} className="h-96 w-full">
+    <MapContainer center={positions[0]} zoom={10} className="h-screen w-full absolute z-0" zoomControl={false}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
+      <ZoomControl position="bottomright" />
       <Polyline positions={positions} color="blue" />
       {stoppages.map((stop, index) => (
         <Marker key={index} position={stop.location} icon={customIcon}>

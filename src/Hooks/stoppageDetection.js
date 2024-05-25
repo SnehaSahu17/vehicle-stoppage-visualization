@@ -1,4 +1,3 @@
-// src/utils/stoppageDetection.js
 
 export const detectStoppages = (data, threshold) => {
   const stoppages = [];

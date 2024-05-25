@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import IdInput from "./components/IdInput";
+import React, { useState, useEffect } from "react";
+import Navbar from "./components/Navbar";
+import Sidebar from "./components/Sidebar";
 import Map from "./components/Map";
 import { detectStoppages } from "./Hooks/stoppageDetection";
+import Dialoguebox from "./components/Dialoguebox";
 
 function App() {
   const [gpsData, setGpsData] = useState([]);
   const [error, setError] = useState(null);
-  const [threshold, setThreshold] = useState(5); // default to 5 minutes
+  const [threshold, setThreshold] = useState(); // default to 5 minutes
   const [stoppages, setStoppages] = useState([]);
-  const [equipmentId, setEquipmentId] = useState("EQPT-4");
-
+  const [equipmentId, setEquipmentId] = useState(null);
+  const [nav, setNav] = useState(false);
+  
   const handleThresholdChange = (e) => {
     setThreshold(e.target.value);
   };
@@ -18,17 +21,16 @@ function App() {
     setStoppages(detectedStoppages);
   };
 
-
-
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch('/data.json'); // Path relative to public/
+        const response = await fetch("/data.json"); // Path relative to public/
         if (!response.ok) {
-          throw new Error('Network response was not ok.');
+          throw new Error("Network response was not ok.");
         }
         const data = await response.json();
         setGpsData(data);
+        setNav(true);
       } catch (err) {
         setError(err.message);
       }
@@ -41,31 +43,29 @@ function App() {
   }
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">
-        Vehicle Stoppage Identification
-      </h1>
-      <div className="mb-4">
-        <IdInput equipmentId={equipmentId} setEquipmentId={setEquipmentId} />
-        <label className="block mb-2">Stoppage Threshold (minutes):</label>
-        <input
-          type="number"
-          value={threshold}
-          onChange={handleThresholdChange}
-          className="p-2 border rounded"
-        />
-        <button
-          onClick={handleAnalyze}
-          className="ml-4 p-2 bg-blue-500 text-white rounded"
-        >
-          Analyze
-        </button>
+    <div className="relative ">
+      {gpsData.length > 0 && <Map gpsData={gpsData} stoppages={stoppages} />}
+
+      <div className="px-3 py-4 md:p-8 w-full absolute z-10">
+        <Navbar />
       </div>
-      {gpsData.length > 0 && (
-        <Map gpsData={gpsData} stoppages={stoppages} />
-      )}
+      <div className="px-3 top-44 md:px-8 absolute z-10 h-screen flex gap-12">
+        <Sidebar nav={nav} setNav={setNav} />
+        {nav && (
+          <Dialoguebox
+            equipmentId={equipmentId}
+            setEquipmentId={setEquipmentId}
+            threshold={threshold}
+            handleThresholdChange={handleThresholdChange}
+            handleAnalyze={handleAnalyze}
+
+          />
+        )}
+      </div>
     </div>
   );
 }
 
 export default App;
+
+
