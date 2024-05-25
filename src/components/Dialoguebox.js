@@ -41,17 +41,27 @@ function Dialoguebox({
         />
         <button
           onClick={handleAnalyze}
-          className="md:ml-4 p-2 bg-blue-500 text-white rounded"
+          className="md:ml-4 py-2 px-1 bg-blue-500 text-white rounded"
         >
           Analyze
         </button>
+        <div>
+          Click on{" "}
+          <img
+            src="https://img.icons8.com/?size=100&id=PZTTDl8ML4vy&format=png&color=000000"
+            className="w-8 h-8 inline-flex"
+            alt="icon"
+          ></img>
+          &nbsp;to view the details
+        </div>
       </div>
+
       {/* details of stoppages */}
-      <div>
+      <div className="mb-2">
         <h1 className="text-xl font-semibold  text-[#0c1b2d]">
           Stoppage Details
         </h1>
-        <div className="mt-2 h-20 sm:h-56 md:h-72  2xl:h-[22rem] overflow-y-auto">
+        <div className="mt-2 h-20 sm:h-56 md:h-[16rem]  2xl:h-[20rem] overflow-y-auto">
           {stoppages.map((stoppage, index) => (
             <div key={index} className="mt-2">
               <h2 className=" text-lg font-medium  text-[#af3535]">
