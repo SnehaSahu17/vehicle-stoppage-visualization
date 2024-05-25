@@ -18,10 +18,10 @@ function App() {
     },
   ]);
   const [error, setError] = useState(null);
-  const [threshold, setThreshold] = useState(); // default to 5 minutes
+  const [threshold, setThreshold] = useState(); 
   const [stoppages, setStoppages] = useState([]);
   const [equipmentId, setEquipmentId] = useState("");
-  const [nav, setNav] = useState(false);
+  const [nav, setNav] = useState(true);
   
   const handleThresholdChange = (e) => {
     setThreshold(e.target.value);
@@ -35,7 +35,7 @@ function App() {
    
      async function fetchData() {
        try {
-         const response = await fetch("/data.json"); // Path relative to public/
+         const response = await fetch("/data.json"); 
          if (!response.ok) {
            throw new Error("Network response was not ok.");
          }
@@ -47,7 +47,7 @@ function App() {
        }
      }
      fetchData();
-  // Empty dependency array ensures this runs once on mount
+
    if (error) {
      return <div>Error: {error}</div>;
    }
@@ -75,6 +75,7 @@ function App() {
             handleThresholdChange={handleThresholdChange}
             handleAnalyze={handleAnalyze}
             handleEquipmentAnalyze={handleEquipmentAnalyze}
+            stoppages={stoppages}
           />
         )}
       </div>

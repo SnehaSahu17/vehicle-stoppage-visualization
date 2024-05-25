@@ -1,8 +1,16 @@
-import React from 'react'
+import React from "react";
 
-function Dialoguebox({equipmentId, setEquipmentId, threshold, handleThresholdChange, handleAnalyze, handleEquipmentAnalyze}) {
+function Dialoguebox({
+  equipmentId,
+  setEquipmentId,
+  threshold,
+  handleThresholdChange,
+  handleAnalyze,
+  handleEquipmentAnalyze,
+  stoppages,
+}) {
   return (
-    <div className=" bg-[#fdfdfd]  w-52 md:w-80 h-[70%] rounded-xl p-4 flex flex-col ">
+    <div className=" bg-[#fdfdfd]  w-52 md:w-80 h-[70%] rounded-xl p-4 flex flex-col relative ">
       <h1 className="text-2xl font-semibold  text-[#0c1b2d]">
         Active Vehicles
       </h1>
@@ -38,8 +46,47 @@ function Dialoguebox({equipmentId, setEquipmentId, threshold, handleThresholdCha
           Analyze
         </button>
       </div>
+      {/* details of stoppages */}
+      <div>
+        <h1 className="text-xl font-semibold  text-[#0c1b2d]">
+          Stoppage Details
+        </h1>
+        <div className="mt-2  h-72 overflow-y-auto">
+          {stoppages.map((stoppage, index) => (
+            <div key={index} className="mt-2">
+              <h2 className="text-lg font-medium  text-[#af3535]">
+                Stoppage {index + 1}
+              </h2>
+              <p className="text-[#4a5a6d] text-md">
+                Reach Time:{" "}
+                <span className="text-[#6b7f97] text-sm ">
+                  {stoppage.reachTime}
+                </span>
+              </p>
+              <p className="text-[#4a5a6d] text-md">
+                End Time:
+                <span className="text-[#6b7f97] text-sm ">
+                  {stoppage.endTime}
+                </span>
+              </p>
+              <p className="text-[#4a5a6d] text-md">
+                Duration:
+                <span className="text-[#6b7f97] text-sm ">
+                  {stoppage.duration} minutes
+                </span>
+              </p>
+              <p className="text-[#4a5a6d] text-md">
+                Distance Covered:
+                <span className="text-[#6b7f97] text-sm ">
+                  {stoppage.distance} km
+                </span>
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
 
-export default Dialoguebox
+export default Dialoguebox;
